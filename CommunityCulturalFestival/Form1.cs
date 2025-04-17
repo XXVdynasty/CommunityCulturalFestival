@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace CommunityCulturalFestival
@@ -13,7 +12,6 @@ namespace CommunityCulturalFestival
         {
             InitializeComponent();
 
-            // Populate culturally responsive categories
             cmbCategory.Items.AddRange(new string[]
             {
                 "African Drumming",
@@ -26,7 +24,6 @@ namespace CommunityCulturalFestival
             });
         }
 
-        // Register participant
         private void btnRegister_Click(object sender, EventArgs e)
         {
             try
@@ -35,14 +32,11 @@ namespace CommunityCulturalFestival
                 string category = cmbCategory.SelectedItem?.ToString();
                 string contact = txtContact.Text;
 
-                if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(category) || string.IsNullOrWhiteSpace(contact))
-                {
-                    throw new ArgumentException("All fields are required.");
-                }
+                if (!ValidateInputs(name, category, contact))
+                    return;
 
                 decimal fee = CalculateFee(category);
-
-                manager.AddParticipant(new Participant(name, category, fee, contact));
+                RegisterParticipant(name, category, contact, fee);
                 MessageBox.Show("Participant registered successfully!");
                 ClearForm();
             }
@@ -56,53 +50,21 @@ namespace CommunityCulturalFestival
             }
         }
 
-        // View all participants
-        private void btnViewAll_Click(object sender, EventArgs e)
+        private bool ValidateInputs(string name, string category, string contact)
         {
-            lstParticipants.Items.Clear();
-            foreach (var p in manager.GetAllParticipants())
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(category) || string.IsNullOrWhiteSpace(contact))
             {
-                lstParticipants.Items.Add($"{p.Name} - {p.Category} - ${p.Fee} - {p.ContactInfo}");
+                MessageBox.Show("All fields are required.");
+                return false;
             }
-
-            // Show total revenue
-            decimal total = manager.CalculateTotalFees();
-            lstParticipants.Items.Add($"-----------------------------");
-            lstParticipants.Items.Add($"Total Fees Collected: ${total}");
+            return true;
         }
 
-        // Search participant by name
-        private void btnSearch_Click(object sender, EventArgs e)
+        private void RegisterParticipant(string name, string category, string contact, decimal fee)
         {
-            string searchName = txtSearchName.Text.Trim();
-            if (string.IsNullOrWhiteSpace(searchName))
-            {
-                MessageBox.Show("Please enter a name to search.");
-                return;
-            }
-
-            var result = manager.FindParticipant(searchName);
-            lstParticipants.Items.Clear();
-
-            if (result != null)
-            {
-                lstParticipants.Items.Add($"Found: {result.Name} - {result.Category} - ${result.Fee} - {result.ContactInfo}");
-            }
-            else
-            {
-                lstParticipants.Items.Add("Participant not found.");
-            }
+            manager.AddParticipant(new Participant(name, category, fee, contact));
         }
 
-        // Clear form fields
-        private void ClearForm()
-        {
-            txtName.Clear();
-            txtContact.Clear();
-            cmbCategory.SelectedIndex = -1;
-        }
-
-        // Determine registration fee
         private decimal CalculateFee(string category)
         {
             return category switch
@@ -118,10 +80,53 @@ namespace CommunityCulturalFestival
             };
         }
 
-        // Optional placeholder
+        // Overloaded method (might use) this if you want to display category and fee
+        private decimal CalculateFee(string category, out string message)
+        {
+            decimal fee = CalculateFee(category);
+            message = $"Calculated Fee for {category}: ${fee}";
+            return fee;
+        }
+
+        private void ClearForm()
+        {
+            txtName.Clear();
+            txtContact.Clear();
+            cmbCategory.SelectedIndex = -1;
+            txtSearchName.Clear();  // Ensure search box also resets if needed
+        }
+
+        private void btnViewAll_Click(object sender, EventArgs e)
+        {
+            lstParticipants.Items.Clear();
+            foreach (var p in manager.GetAllParticipants())
+            {
+                lstParticipants.Items.Add($"{p.Name} - {p.Category} - ${p.Fee} - {p.ContactInfo}");
+            }
+        }
         private void button1_Click(object sender, EventArgs e)
         {
-            // Reserved for bonus or summary stats
+            // Bonus stats or summary
+            decimal totalFees = manager.CalculateTotalFees();
+            MessageBox.Show($"Total Festival Revenue: ${totalFees}");
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string keyword = txtSearchName.Text.Trim();
+            lstParticipants.Items.Clear();
+
+            var results = manager.SearchByName(keyword);
+            if (results.Count == 0)
+            {
+                MessageBox.Show("No participants found.");
+                return;
+            }
+
+            foreach (var p in results)
+            {
+                lstParticipants.Items.Add($"{p.Name} - {p.Category} - ${p.Fee} - {p.ContactInfo}");
+            }
         }
     }
 }

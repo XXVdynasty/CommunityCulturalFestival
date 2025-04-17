@@ -6,9 +6,6 @@ namespace CommunityCulturalFestival
 {
     public class FestivalManager
     {
-        public string FestivalName { get; set; } = "Community Cultural Festival";
-        public int Year { get; set; } = DateTime.Now.Year;
-
         private List<Participant> participants = new List<Participant>();
 
         public void AddParticipant(Participant p)
@@ -16,9 +13,16 @@ namespace CommunityCulturalFestival
             participants.Add(p);
         }
 
-        public Participant FindParticipant(string name)
+        public List<Participant> GetAllParticipants()
         {
-            return participants.FirstOrDefault(p => p.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            return participants;
+        }
+
+        public List<Participant> SearchByName(string name)
+        {
+            return participants
+                .Where(p => p.Name.IndexOf(name, StringComparison.OrdinalIgnoreCase) >= 0)
+                .ToList();
         }
 
         public decimal CalculateTotalFees()
@@ -26,9 +30,14 @@ namespace CommunityCulturalFestival
             return participants.Sum(p => p.Fee);
         }
 
-        public List<Participant> GetAllParticipants()
+        public bool HasHigherParticipation(int currentCount, int previousYearCount)
         {
-            return participants;
+            return currentCount > previousYearCount;
+        }
+
+        public bool HasLowerParticipation(int currentCount, int previousYearCount)
+        {
+            return currentCount < previousYearCount;
         }
     }
 }
