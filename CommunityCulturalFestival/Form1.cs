@@ -13,7 +13,7 @@ namespace CommunityCulturalFestival
 {
     public partial class Form1 : Form
     {
-        private List<Participant> participants = new List<Participant>();
+        private FestivalManager manager = new FestivalManager();  // ✅ New Manager
 
         public Form1()
         {
@@ -22,18 +22,18 @@ namespace CommunityCulturalFestival
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            // Placeholder for participant registration logic
             string name = txtName.Text;
             string category = cmbCategory.SelectedItem?.ToString();
+            string contact = txtContact.Text;  // ✅ New field
             decimal fee = CalculateFee(category);
 
-            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(category))
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(category) || string.IsNullOrWhiteSpace(contact))
             {
                 MessageBox.Show("Please enter all required fields.");
                 return;
             }
 
-            participants.Add(new Participant(name, category, fee));
+            manager.AddParticipant(new Participant(name, category, fee, contact));  // ✅ Updated constructor
             MessageBox.Show("Participant registered successfully!");
             ClearForm();
         }
@@ -53,23 +53,22 @@ namespace CommunityCulturalFestival
         private void ClearForm()
         {
             txtName.Clear();
+            txtContact.Clear();  // ✅ Clear contact too
             cmbCategory.SelectedIndex = -1;
         }
 
         private void btnViewAll_Click(object sender, EventArgs e)
         {
             lstParticipants.Items.Clear();
-            foreach (var p in participants)
+            foreach (var p in manager.GetAllParticipants())  // ✅ Use manager’s list
             {
-                lstParticipants.Items.Add($"{p.Name} - {p.Category} - ${p.Fee}");
+                lstParticipants.Items.Add($"{p.Name} - {p.Category} - ${p.Fee} - {p.ContactInfo}");
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            // Optional feature button placeholder
         }
-
     }
-
 }
