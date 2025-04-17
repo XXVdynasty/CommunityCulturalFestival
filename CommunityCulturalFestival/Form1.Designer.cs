@@ -53,7 +53,7 @@
             // 
             this.txtName.Location = new System.Drawing.Point(562, 6);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(51, 26);
+            this.txtName.Size = new System.Drawing.Size(367, 26);
             this.txtName.TabIndex = 1;
             // 
             // label2
@@ -75,7 +75,7 @@
             "Culinary"});
             this.cmbCategory.Location = new System.Drawing.Point(562, 57);
             this.cmbCategory.Name = "cmbCategory";
-            this.cmbCategory.Size = new System.Drawing.Size(86, 28);
+            this.cmbCategory.Size = new System.Drawing.Size(377, 28);
             this.cmbCategory.TabIndex = 3;
             // 
             // btnRegister
@@ -90,7 +90,7 @@
             // 
             // btnViewAll
             // 
-            this.btnViewAll.Location = new System.Drawing.Point(551, 217);
+            this.btnViewAll.Location = new System.Drawing.Point(662, 217);
             this.btnViewAll.Name = "btnViewAll";
             this.btnViewAll.Size = new System.Drawing.Size(107, 43);
             this.btnViewAll.TabIndex = 5;
@@ -129,7 +129,7 @@
             // 
             this.txtContact.Location = new System.Drawing.Point(562, 143);
             this.txtContact.Name = "txtContact";
-            this.txtContact.Size = new System.Drawing.Size(100, 26);
+            this.txtContact.Size = new System.Drawing.Size(377, 26);
             this.txtContact.TabIndex = 9;
             // 
             // Form1

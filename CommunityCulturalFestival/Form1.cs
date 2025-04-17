@@ -13,39 +13,64 @@ namespace CommunityCulturalFestival
 {
     public partial class Form1 : Form
     {
-        private FestivalManager manager = new FestivalManager();  // ✅ New Manager
+        private FestivalManager manager = new FestivalManager();
 
         public Form1()
         {
             InitializeComponent();
+
+            // ✅ Add culturally responsive categories to ComboBox
+            cmbCategory.Items.AddRange(new string[]
+            {
+                "African Drumming",
+                "Caribbean Dance",
+                "Indigenous Storytelling",
+                "Spoken Word",
+                "Culinary - Soul Food",
+                "Visual Art",
+                "Afro-Caribbean Fashion"
+            });
         }
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            string name = txtName.Text;
-            string category = cmbCategory.SelectedItem?.ToString();
-            string contact = txtContact.Text;  // ✅ New field
-            decimal fee = CalculateFee(category);
-
-            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(category) || string.IsNullOrWhiteSpace(contact))
+            try
             {
-                MessageBox.Show("Please enter all required fields.");
-                return;
-            }
+                string name = txtName.Text;
+                string category = cmbCategory.SelectedItem?.ToString();
+                string contact = txtContact.Text;
+                decimal fee = CalculateFee(category);
 
-            manager.AddParticipant(new Participant(name, category, fee, contact));  // ✅ Updated constructor
-            MessageBox.Show("Participant registered successfully!");
-            ClearForm();
+                if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(category) || string.IsNullOrWhiteSpace(contact))
+                {
+                    throw new ArgumentException("All fields are required.");
+                }
+
+                manager.AddParticipant(new Participant(name, category, fee, contact));
+                MessageBox.Show("Participant registered successfully!");
+                ClearForm();
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show($"Input Error: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unexpected Error: {ex.Message}");
+            }
         }
 
         private decimal CalculateFee(string category)
         {
             return category switch
             {
-                "Music" => 20m,
-                "Dance" => 15m,
-                "Art" => 10m,
-                "Culinary" => 25m,
+                "African Drumming" => 20m,
+                "Caribbean Dance" => 25m,
+                "Indigenous Storytelling" => 15m,
+                "Spoken Word" => 10m,
+                "Culinary - Soul Food" => 30m,
+                "Visual Art" => 18m,
+                "Afro-Caribbean Fashion" => 22m,
                 _ => 0m
             };
         }
@@ -53,14 +78,14 @@ namespace CommunityCulturalFestival
         private void ClearForm()
         {
             txtName.Clear();
-            txtContact.Clear();  // ✅ Clear contact too
+            txtContact.Clear();
             cmbCategory.SelectedIndex = -1;
         }
 
         private void btnViewAll_Click(object sender, EventArgs e)
         {
             lstParticipants.Items.Clear();
-            foreach (var p in manager.GetAllParticipants())  // ✅ Use manager’s list
+            foreach (var p in manager.GetAllParticipants())
             {
                 lstParticipants.Items.Add($"{p.Name} - {p.Category} - ${p.Fee} - {p.ContactInfo}");
             }
@@ -68,7 +93,7 @@ namespace CommunityCulturalFestival
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // Optional feature button placeholder
+            // Optional feature placeholder
         }
     }
 }
