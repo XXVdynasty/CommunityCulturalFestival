@@ -8,9 +8,16 @@ namespace CommunityCulturalFestival
     {
         private List<Participant> participants = new List<Participant>();
 
-        public void AddParticipant(Participant p)
+        public void AddParticipant(Participant participant)
         {
-            participants.Add(p);
+            if (participant != null && participant.IsValidRegistration())
+            {
+                participants.Add(participant);
+            }
+            else
+            {
+                throw new ArgumentException("Invalid participant data.");
+            }
         }
 
         public List<Participant> GetAllParticipants()
@@ -28,16 +35,5 @@ namespace CommunityCulturalFestival
         public decimal CalculateTotalFees()
         {
             return participants.Sum(p => p.Fee);
-        }
-
-        public bool HasHigherParticipation(int currentCount, int previousYearCount)
-        {
-            return currentCount > previousYearCount;
-        }
-
-        public bool HasLowerParticipation(int currentCount, int previousYearCount)
-        {
-            return currentCount < previousYearCount;
-        }
-    }
+        }  }
 }

@@ -38,9 +38,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtContact = new System.Windows.Forms.TextBox();
-            this.btnSearch = new System.Windows.Forms.Label();
-            this.txtSearchName = new System.Windows.Forms.TextBox();
             this.btnSummary = new System.Windows.Forms.Button();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.txtSearchName = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -113,7 +113,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 369);
+            this.label3.Location = new System.Drawing.Point(6, 393);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(92, 20);
             this.label3.TabIndex = 7;
@@ -135,40 +135,40 @@
             this.txtContact.Size = new System.Drawing.Size(377, 26);
             this.txtContact.TabIndex = 9;
             // 
-            // btnSearch
-            // 
-            this.btnSearch.AutoSize = true;
-            this.btnSearch.Location = new System.Drawing.Point(1123, 369);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(60, 20);
-            this.btnSearch.TabIndex = 10;
-            this.btnSearch.Text = "Search";
-            // 
-            // txtSearchName
-            // 
-            this.txtSearchName.Location = new System.Drawing.Point(934, 363);
-            this.txtSearchName.Name = "txtSearchName";
-            this.txtSearchName.Size = new System.Drawing.Size(155, 26);
-            this.txtSearchName.TabIndex = 11;
-            this.txtSearchName.Text = "Search by Name";
-            // 
             // btnSummary
             // 
-            this.btnSummary.Location = new System.Drawing.Point(706, 363);
+            this.btnSummary.Location = new System.Drawing.Point(550, 387);
             this.btnSummary.Name = "btnSummary";
             this.btnSummary.Size = new System.Drawing.Size(165, 26);
             this.btnSummary.TabIndex = 12;
             this.btnSummary.Text = "Total Fees";
             this.btnSummary.UseVisualStyleBackColor = true;
             // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(1099, 382);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(112, 25);
+            this.btnSearch.TabIndex = 13;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            // 
+            // txtSearchName
+            // 
+            this.txtSearchName.Location = new System.Drawing.Point(848, 382);
+            this.txtSearchName.Name = "txtSearchName";
+            this.txtSearchName.Size = new System.Drawing.Size(169, 26);
+            this.txtSearchName.TabIndex = 14;
+            this.txtSearchName.Text = "Search by Name";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1277, 705);
-            this.Controls.Add(this.btnSummary);
             this.Controls.Add(this.txtSearchName);
             this.Controls.Add(this.btnSearch);
+            this.Controls.Add(this.btnSummary);
             this.Controls.Add(this.txtContact);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -198,9 +198,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtContact;
-        private System.Windows.Forms.Label btnSearch;
-        private System.Windows.Forms.TextBox txtSearchName;
         private System.Windows.Forms.Button btnSummary;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.TextBox txtSearchName;
     }
 }
 
