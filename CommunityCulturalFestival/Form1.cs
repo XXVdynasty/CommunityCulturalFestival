@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace CommunityCulturalFestival
 {
@@ -19,7 +13,7 @@ namespace CommunityCulturalFestival
         {
             InitializeComponent();
 
-            // ✅ Add culturally responsive categories to ComboBox
+            // Populate culturally responsive categories
             cmbCategory.Items.AddRange(new string[]
             {
                 "African Drumming",
@@ -32,6 +26,7 @@ namespace CommunityCulturalFestival
             });
         }
 
+        // Register participant
         private void btnRegister_Click(object sender, EventArgs e)
         {
             try
@@ -39,12 +34,13 @@ namespace CommunityCulturalFestival
                 string name = txtName.Text;
                 string category = cmbCategory.SelectedItem?.ToString();
                 string contact = txtContact.Text;
-                decimal fee = CalculateFee(category);
 
                 if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(category) || string.IsNullOrWhiteSpace(contact))
                 {
                     throw new ArgumentException("All fields are required.");
                 }
+
+                decimal fee = CalculateFee(category);
 
                 manager.AddParticipant(new Participant(name, category, fee, contact));
                 MessageBox.Show("Participant registered successfully!");
@@ -60,6 +56,53 @@ namespace CommunityCulturalFestival
             }
         }
 
+        // View all participants
+        private void btnViewAll_Click(object sender, EventArgs e)
+        {
+            lstParticipants.Items.Clear();
+            foreach (var p in manager.GetAllParticipants())
+            {
+                lstParticipants.Items.Add($"{p.Name} - {p.Category} - ${p.Fee} - {p.ContactInfo}");
+            }
+
+            // Show total revenue
+            decimal total = manager.CalculateTotalFees();
+            lstParticipants.Items.Add($"-----------------------------");
+            lstParticipants.Items.Add($"Total Fees Collected: ${total}");
+        }
+
+        // Search participant by name
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string searchName = txtSearchName.Text.Trim();
+            if (string.IsNullOrWhiteSpace(searchName))
+            {
+                MessageBox.Show("Please enter a name to search.");
+                return;
+            }
+
+            var result = manager.FindParticipant(searchName);
+            lstParticipants.Items.Clear();
+
+            if (result != null)
+            {
+                lstParticipants.Items.Add($"Found: {result.Name} - {result.Category} - ${result.Fee} - {result.ContactInfo}");
+            }
+            else
+            {
+                lstParticipants.Items.Add("Participant not found.");
+            }
+        }
+
+        // Clear form fields
+        private void ClearForm()
+        {
+            txtName.Clear();
+            txtContact.Clear();
+            cmbCategory.SelectedIndex = -1;
+        }
+
+        // Determine registration fee
         private decimal CalculateFee(string category)
         {
             return category switch
@@ -75,25 +118,10 @@ namespace CommunityCulturalFestival
             };
         }
 
-        private void ClearForm()
-        {
-            txtName.Clear();
-            txtContact.Clear();
-            cmbCategory.SelectedIndex = -1;
-        }
-
-        private void btnViewAll_Click(object sender, EventArgs e)
-        {
-            lstParticipants.Items.Clear();
-            foreach (var p in manager.GetAllParticipants())
-            {
-                lstParticipants.Items.Add($"{p.Name} - {p.Category} - ${p.Fee} - {p.ContactInfo}");
-            }
-        }
-
+        // Optional placeholder
         private void button1_Click(object sender, EventArgs e)
         {
-            // Optional feature placeholder
+            // Reserved for bonus or summary stats
         }
     }
 }
