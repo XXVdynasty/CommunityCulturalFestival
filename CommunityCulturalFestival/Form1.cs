@@ -18,9 +18,7 @@ namespace CommunityCulturalFestival
         public Form1()
         {
             InitializeComponent();
-
-            // Background color - rich black to give depth
-            this.BackColor = Color.FromArgb(25, 25, 25);
+            ApplyColorTheme(); // STEP 1: Add refined theme here
 
             // ComboBox items
             cmbCategory.Items.AddRange(new string[]
@@ -34,12 +32,6 @@ namespace CommunityCulturalFestival
                 "Afro-Caribbean Fashion"
             });
 
-            // Style buttons with Afro-Caribbean flavor
-            StyleButton(btnRegister, Color.DarkRed);
-            StyleButton(btnViewAll, Color.DarkGreen);
-            StyleButton(btnSearch, Color.Goldenrod);
-            StyleButton(btnSummary, Color.Teal);
-
             // ToolTips for accessibility
             ToolTip tips = new ToolTip();
             tips.SetToolTip(txtName, "Enter participant's full name.");
@@ -50,7 +42,45 @@ namespace CommunityCulturalFestival
             tips.SetToolTip(btnSearch, "Search for a participant by name.");
             tips.SetToolTip(btnSummary, "View total collected fees.");
 
-            this.AcceptButton = btnRegister; // Pressing Enter triggers register
+            this.AcceptButton = btnRegister;
+        }
+
+        private void ApplyColorTheme()
+        {
+            // Charcoal background
+            this.BackColor = Color.FromArgb(30, 30, 30);
+
+            // Labels (optional, if any)
+            foreach (Control ctrl in this.Controls)
+            {
+                if (ctrl is Label lbl)
+                    lbl.ForeColor = Color.WhiteSmoke;
+            }
+
+            // TextBoxes
+            txtName.BackColor = Color.WhiteSmoke;
+            txtName.ForeColor = Color.Black;
+
+            txtContact.BackColor = Color.WhiteSmoke;
+            txtContact.ForeColor = Color.Black;
+
+            txtSearchName.BackColor = Color.WhiteSmoke;
+            txtSearchName.ForeColor = Color.Black;
+
+            // ComboBox
+            cmbCategory.BackColor = Color.WhiteSmoke;
+            cmbCategory.ForeColor = Color.Black;
+
+            // ListBox
+            lstParticipants.BackColor = Color.White;
+            lstParticipants.ForeColor = Color.Black;
+
+            // Buttons - Pan-African inspired refined tones
+            StyleButton(btnRegister, Color.FromArgb(198, 40, 40));   // Deep red
+            StyleButton(btnViewAll, Color.FromArgb(46, 125, 50));    // Festival green
+            StyleButton(btnSummary, Color.FromArgb(0, 137, 123));    // Teal
+            StyleButton(btnSearch, Color.FromArgb(249, 168, 37));    // Gold
+            btnSearch.ForeColor = Color.Black; // Special contrast for gold button
         }
 
         private void StyleButton(Button btn, Color backColor)
@@ -83,8 +113,6 @@ namespace CommunityCulturalFestival
                 manager.AddParticipant(new Participant(name, category, fee, contact));
                 MessageBox.Show("Participant registered successfully!");
                 ClearForm();
-
-                // Visual feedback
                 HighlightInputs();
             }
             catch (ArgumentException ex)
@@ -111,9 +139,9 @@ namespace CommunityCulturalFestival
             timer.Interval = 1000;
             timer.Tick += (s, e) =>
             {
-                txtName.BackColor = SystemColors.Window;
-                txtContact.BackColor = SystemColors.Window;
-                cmbCategory.BackColor = SystemColors.Window;
+                txtName.BackColor = Color.WhiteSmoke;
+                txtContact.BackColor = Color.WhiteSmoke;
+                cmbCategory.BackColor = Color.WhiteSmoke;
                 timer.Stop();
             };
             timer.Start();
@@ -194,12 +222,18 @@ namespace CommunityCulturalFestival
                 _ => 0m
             };
         }
+
         private void ClearForm()
         {
             txtName.Clear();
             txtContact.Clear();
             cmbCategory.SelectedIndex = -1;
             txtSearchName.Clear();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

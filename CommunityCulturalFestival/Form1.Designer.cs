@@ -54,7 +54,7 @@
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(562, 6);
+            this.txtName.Location = new System.Drawing.Point(145, 3);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(367, 26);
             this.txtName.TabIndex = 1;
@@ -76,7 +76,7 @@
             "Dance",
             "Art",
             "Culinary"});
-            this.cmbCategory.Location = new System.Drawing.Point(562, 57);
+            this.cmbCategory.Location = new System.Drawing.Point(145, 53);
             this.cmbCategory.Name = "cmbCategory";
             this.cmbCategory.Size = new System.Drawing.Size(377, 28);
             this.cmbCategory.TabIndex = 3;
@@ -93,7 +93,7 @@
             // 
             // btnViewAll
             // 
-            this.btnViewAll.Location = new System.Drawing.Point(662, 217);
+            this.btnViewAll.Location = new System.Drawing.Point(197, 370);
             this.btnViewAll.Name = "btnViewAll";
             this.btnViewAll.Size = new System.Drawing.Size(107, 43);
             this.btnViewAll.TabIndex = 5;
@@ -130,7 +130,7 @@
             // 
             // txtContact
             // 
-            this.txtContact.Location = new System.Drawing.Point(562, 143);
+            this.txtContact.Location = new System.Drawing.Point(145, 144);
             this.txtContact.Name = "txtContact";
             this.txtContact.Size = new System.Drawing.Size(377, 26);
             this.txtContact.TabIndex = 9;
@@ -181,6 +181,7 @@
             this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
