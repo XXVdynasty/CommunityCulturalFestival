@@ -8,11 +8,23 @@ namespace CommunityCulturalFestival
     {
         private List<Participant> participants = new List<Participant>();
 
+        // Adds a participant with duplicate check and registration validation
         public void AddParticipant(Participant participant)
         {
             if (participant != null && participant.IsValidRegistration())
             {
-                participants.Add(participant);
+                bool isDuplicate = participants.Any(p =>
+                    p.Name.Equals(participant.Name, StringComparison.OrdinalIgnoreCase) &&
+                    p.ContactInfo.Equals(participant.ContactInfo, StringComparison.OrdinalIgnoreCase));
+
+                if (!isDuplicate)
+                {
+                    participants.Add(participant);
+                }
+                else
+                {
+                    throw new ArgumentException("Participant already registered.");
+                }
             }
             else
             {
@@ -20,11 +32,19 @@ namespace CommunityCulturalFestival
             }
         }
 
+        // Returns all participants unsorted
         public List<Participant> GetAllParticipants()
         {
             return participants;
         }
 
+        // Returns participants sorted alphabetically by name
+        public List<Participant> GetAllParticipantsSorted()
+        {
+            return participants.OrderBy(p => p.Name).ToList();
+        }
+
+        // Case-insensitive search
         public List<Participant> SearchByName(string name)
         {
             return participants
@@ -32,8 +52,10 @@ namespace CommunityCulturalFestival
                 .ToList();
         }
 
+        // Sums all registration fees
         public decimal CalculateTotalFees()
         {
             return participants.Sum(p => p.Fee);
-        }  }
+        }
+    }
 }

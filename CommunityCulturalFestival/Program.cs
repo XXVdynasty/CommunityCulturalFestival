@@ -9,7 +9,7 @@ namespace CommunityCulturalFestival
     internal static class Program
     {
         /// <summary>
-        /// The main entry point for the application.
+        /// main entry point for my application.
         /// </summary>
         [STAThread]
         static void Main()

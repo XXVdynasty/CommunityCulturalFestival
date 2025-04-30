@@ -1,4 +1,6 @@
-﻿namespace CommunityCulturalFestival
+﻿using System.Linq;
+
+namespace CommunityCulturalFestival
 {
     public class Participant
     {
@@ -17,10 +19,17 @@
 
         public bool IsValidRegistration()
         {
+            bool hasValidContact =
+                ContactInfo.Contains("@") ||                    // checks for email
+                ContactInfo.All(char.IsDigit) ||                // If allll digits its likely a phone number
+                ContactInfo.Any(char.IsDigit) &&                // At least has digits and
+                ContactInfo.Replace("-", "").Replace(" ", "").All(char.IsDigit); // Accepts dashes/spaces in numbers
+
             return !string.IsNullOrWhiteSpace(Name)
                 && !string.IsNullOrWhiteSpace(Category)
                 && !string.IsNullOrWhiteSpace(ContactInfo)
-                && Fee >= 0;
+                && Fee >= 0
+                && hasValidContact;
         }
     }
 }
