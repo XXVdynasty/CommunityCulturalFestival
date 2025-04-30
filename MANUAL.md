@@ -1,62 +1,88 @@
-﻿# 📖 User Manual – Community Cultural Festival Management System
+# 📝 MANUAL.md — User Guide
 
-## Overview
-
-This application is designed for organizing and managing participants in a cultural festival, with a focus on African and Caribbean heritage. It allows users to register participants, categorize them, and calculate fees efficiently.
+This manual provides step-by-step instructions for using the **Community Cultural Festival Management System**, a C# Windows Forms application built to register and manage participants in a culturally responsive community event.
 
 ---
 
-## Getting Started
+## 🚀 Getting Started
 
-### System Requirements
+1. Open the solution in **Visual Studio 2022**
+2. Build the solution:  
+   `Build > Build Solution` or press `Ctrl + Shift + B`
+3. Run the application:  
+   `Debug > Start Without Debugging` or press `Ctrl + F5`
+4. The main form will launch with the festival registration interface
 
-- Windows 10 or higher
-- .NET Framework 4.7.2
-- Visual Studio 2022 (for development)
+📦 Ensure `.NET Framework 4.7.2` is installed.
+---
 
-### How to Launch
+## 🖱️ Feature Walkthrough
 
-1. Open the solution file `CommunityCulturalFestival.sln` in Visual Studio.
-2. Press `Start` (green play button) to run the application.
+### 📝 Registering a Participant
+- Fill out the **Name**, **Category**, and **Contact Info**
+- Select a **category** (e.g., African Drumming, Culinary - Soul Food)
+- Click **Register**
+- A success message will appear, and the fields will highlight briefly
+
+📸 Screenshot: ![Register Participant](./screenshots/register_participant.png)
+
 
 ---
 
-## Navigation Guide
+### 🔍 Search Participants
+- Enter a name into the search field
+- Click **Search**
+- Matching results will populate in the list
 
-| Section                | Description                            |
-|------------------------|----------------------------------------|
-| Main Menu              | Launches core options like Register, View All, Search |
-| Registration Form      | Form where user inputs participant details |
-| Participant Viewer     | Displays registered participants in a table |
-| Fee Calculator         | Automatically totals based on category |
+📸 Screenshot: ![Search Result](./screenshots/search_result.png)
 
 ---
 
-## Features (to be confirmed)
+### 📃 View All Participants
+- Click the **View All** button to see everyone currently registered
 
-- [ ] Register festival participants
-- [ ] Categorize by Music, Dance, Art, Culinary
-- [ ] Search and view all participants
-- [ ] Auto fee calculation
-- [ ] Error handling for blank/malformed input
-- [ ] Custom classes for object-oriented structure
+📸 Screenshot: ![View All](./screenshots/view_all.png)
 
 ---
 
-## Data Structure
-
-- Participants will be stored using custom class objects.
-- Future versions may implement file saving/loading or database storage.
+### 💰 View Total Fees
+- Click the **Total Fees** button to calculate and display total revenue
 
 ---
 
-## Troubleshooting
+### 💾 Export to CSV
+- Click **Export to CSV** to save participant data
+- Choose a location and save
+- File includes headers and formatted rows
 
-| Issue | Solution |
-|-------|----------|
-| App doesn't open | Make sure you're using Visual Studio 2022 and have .NET 4.7.2 installed |
-| Fees not calculating | Check for missing category or improperly formatted numbers |
-| UI isn't responding | Make sure all required fields are filled before submitting |
+📸 Screenshot: ![Export CSV](./screenshots/export_csv.png)
 
 ---
 
+## ♿ Accessibility Features
+
+- 🟢 High-contrast color theme for readability
+- 🟡 Tooltip hints on all buttons and fields
+- 🔄 Keyboard accessible (tab navigation through all inputs)
+- 🆎 Clear, legible font styles
+
+---
+
+## 🛠️ Known Limitations
+
+- Specialized participants (e.g., ArtParticipant) are implemented in code only and not linked to the form inputs
+- Currently supports one cultural category per participant
+
+---
+
+## 📦 Developer Notes
+
+- Code organized into reusable methods and classes
+- Demonstrates inheritance via `ArtParticipant.cs`
+- Includes an overloaded method `CalculateTotalFees(decimal)` for discounts
+
+---
+
+## 🙏 Thank You
+
+Thank you for reviewing this project! Built with pride, purpose, and cultural appreciation.
